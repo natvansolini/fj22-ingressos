@@ -1,7 +1,7 @@
 package br.com.caelum.ingresso.controller;
 
-import br.com.caelum.ingresso.dao.DAO.SessaoDao;
 import br.com.caelum.ingresso.dao.SalaDao;
+import br.com.caelum.ingresso.dao.SessaoDao;
 import br.com.caelum.ingresso.model.Sala;
 import br.com.caelum.ingresso.model.form.SalaForm;
 
@@ -71,7 +71,7 @@ public class SalaController {
 
         ModelAndView view = new ModelAndView("sessao/lista");
         view.addObject("sessoes", sessaoDao.buscaSessoesDaSala(sala));
-
+        view.addObject("sala", sala);
         return view;
     }
 

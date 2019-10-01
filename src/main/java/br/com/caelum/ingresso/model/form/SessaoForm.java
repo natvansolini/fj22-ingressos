@@ -24,7 +24,7 @@ public class SessaoForm {
 	@NotNull
 	private Integer filmeId;
 	
-	public Sessao tosessao(SalaDao salaDao, FilmeDao filmeDao) {
+	public Sessao toSessao(SalaDao salaDao, FilmeDao filmeDao) {
 		Filme filme = filmeDao.findOne(filmeId);
 		Sala sala = salaDao.findOne(salaId);
 	
