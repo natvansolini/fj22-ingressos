@@ -1,5 +1,6 @@
 package br.com.caelum.ingresso.validacao;
 
+import java.math.BigDecimal;
 import java.time.Duration;
 import java.time.LocalTime;
 import java.util.Arrays;
@@ -15,21 +16,33 @@ import br.com.caelum.ingresso.model.Sala;
 import br.com.caelum.ingresso.model.Sessao;
 
 public class GerenciadorDeSessaoTest {
-
+	
 	private Filme rogueOne;
 	private Sala sala3D;
 	private Sessao sessaoDasDez;
-	private Sessao sessaodasTreze;
+	private Sessao sessaoDasTreze;
 	private Sessao sessaoDasDezoito;
+	
+	@Before 
+	public void preparaSessoes() {
+		
+		this.rogueOne = new Filme("Rogue One", Duration.ofMinutes(120), "SCI-FI", BigDecimal.ONE);
+		this.sala3D = new Sala("Sala 3D", BigDecimal.TEN);
+		
+		this.sessaoDasDez = new Sessao(LocalTime.parse("10:00:00"), rogueOne, sala3D);
+		this.sessaoDasTreze = new Sessao(LocalTime.parse("13:00:00"), rogueOne, sala3D);
+		this.sessaoDasDezoito = new Sessao(LocalTime.parse("18:00:00"), rogueOne, sala3D);
+		}
+
 	
 	@Before
 	public void prepararSessoes() {
 		
-		this.rogueOne = new Filme("Rogue One", Duration.ofMinutes(120), "SCI-FI");
-		this.sala3D = new Sala ("Sala 3D");
+		this.rogueOne = new Filme("Rogue One", Duration.ofMinutes(120), "SCI-FI", BigDecimal.valueOf(12.50));
+		this.sala3D = new Sala ("Sala 3D", BigDecimal.valueOf(10.00));
 		
 		this.sessaoDasDez = new Sessao(LocalTime.parse("10:00:00"), rogueOne, sala3D);
-		this.sessaodasTreze = new Sessao(LocalTime.parse("13:00:00"), rogueOne, sala3D);
+		this.sessaoDasTreze = new Sessao(LocalTime.parse("13:00:00"), rogueOne, sala3D);
 		this.sessaoDasDezoito = new Sessao(LocalTime.parse("18:00:00"), rogueOne, sala3D);
 	}
 	
@@ -62,7 +75,7 @@ public class GerenciadorDeSessaoTest {
 	public void garanteQueDevePermitirUmaInsercaoEntreDoisFilmes() {
 		List<Sessao> sessoes = Arrays.asList(sessaoDasDez, sessaoDasDezoito);
 		GerenciadorDeSessao gerenciador = new GerenciadorDeSessao(sessoes);
-		Assert.assertTrue(gerenciador.cabe(sessaodasTreze));
+		Assert.assertTrue(gerenciador.cabe(sessaoDasTreze));
 	}	
 		
 	@Test
